@@ -5,12 +5,32 @@ import { FaTimes } from 'react-icons/fa';
 export default function PhotoLightbox({ src, alt, onClose }) {
   const closeButtonRef = useRef(null);
 
+  // Focus the close button once, on mount only. This must not depend on
+  // `onClose` (a fresh closure every parent render) or it would steal focus
+  // back to the button on any unrelated re-render while the lightbox is open.
   useEffect(() => {
     closeButtonRef.current?.focus();
+  }, []);
 
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
+
+  useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         onClose();
+        return;
+      }
+      // The close button is the only focusable element in this dialog, so
+      // trapping focus just means Tab always lands back on it.
+      if (event.key === 'Tab') {
+        event.preventDefault();
+        closeButtonRef.current?.focus();
       }
     };
     document.addEventListener('keydown', handleKeyDown);

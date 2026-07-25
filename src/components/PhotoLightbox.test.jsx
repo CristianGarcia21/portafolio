@@ -11,7 +11,7 @@ describe('PhotoLightbox', () => {
     expect(screen.getByRole('button', { name: /cerrar imagen/i })).toHaveFocus();
   });
 
-  it('calls onClose when the close button is clicked', () => {
+  it('calls onClose exactly once when the close button is clicked (regression: the click used to bubble to the backdrop and fire onClose twice)', () => {
     const onClose = vi.fn();
     render(<PhotoLightbox src="/photo.jpg" alt="Foto de prueba" onClose={onClose} />);
     fireEvent.click(screen.getByRole('button', { name: /cerrar imagen/i }));
@@ -37,5 +37,22 @@ describe('PhotoLightbox', () => {
     render(<PhotoLightbox src="/photo.jpg" alt="Foto de prueba" onClose={onClose} />);
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('traps focus on the close button when Tab is pressed (only focusable element in the dialog)', () => {
+    render(<PhotoLightbox src="/photo.jpg" alt="Foto de prueba" onClose={() => {}} />);
+    const closeButton = screen.getByRole('button', { name: /cerrar imagen/i });
+    expect(closeButton).toHaveFocus();
+    fireEvent.keyDown(document, { key: 'Tab' });
+    expect(closeButton).toHaveFocus();
+  });
+
+  it('locks body scroll while open and restores it on unmount', () => {
+    const { unmount } = render(
+      <PhotoLightbox src="/photo.jpg" alt="Foto de prueba" onClose={() => {}} />,
+    );
+    expect(document.body.style.overflow).toBe('hidden');
+    unmount();
+    expect(document.body.style.overflow).not.toBe('hidden');
   });
 });

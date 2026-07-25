@@ -39,7 +39,7 @@ export default function AchievementMedal({ achievement }) {
       data-testid={`achievement-medal-${achievement.id}`}
     >
       <motion.div
-        className="relative h-72 w-full [transform-style:preserve-3d]"
+        className="relative h-80 w-full [transform-style:preserve-3d]"
         animate={{ rotateY: flipped ? 180 : 0 }}
         transition={{ duration: 0.6, ease: 'easeInOut' }}
       >
@@ -86,7 +86,7 @@ export default function AchievementMedal({ achievement }) {
                   onClick={() => setIsPhotoOpen(true)}
                   aria-label={`Ampliar foto: ${photoAlt}`}
                   tabIndex={flipped ? 0 : -1}
-                  className="group/photo relative h-32 w-full shrink-0 overflow-hidden rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                  className="group/photo relative h-28 w-full shrink-0 overflow-hidden rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
                 >
                   <img
                     src={achievement.photo}
@@ -101,7 +101,7 @@ export default function AchievementMedal({ achievement }) {
               ) : (
                 <div
                   data-testid="achievement-photo-placeholder"
-                  className="flex h-32 w-full shrink-0 items-center justify-center rounded-md border border-dashed border-white/20 bg-black/40 font-mono text-xs text-neutral-500"
+                  className="flex h-28 w-full shrink-0 items-center justify-center rounded-md border border-dashed border-white/20 bg-black/40 font-mono text-xs text-neutral-500"
                 >
                   Foto próximamente
                 </div>
