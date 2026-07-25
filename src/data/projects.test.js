@@ -43,4 +43,15 @@ describe('projects data', () => {
     expect(typeof detector.note).toBe('string');
     expect(detector.note.length).toBeGreaterThan(0);
   });
+
+  it('the pattern-design-detector project has 3 mockup image paths', () => {
+    const detector = projects.find((p) => p.id === 'pattern-design-detector');
+    expect(detector).toBeDefined();
+    expect(Array.isArray(detector.images)).toBe(true);
+    expect(detector.images).toHaveLength(3);
+    detector.images.forEach((path) => {
+      expect(typeof path).toBe('string');
+      expect(path.startsWith('/images/projects/pattern-design-detector/')).toBe(true);
+    });
+  });
 });

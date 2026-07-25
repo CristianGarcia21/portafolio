@@ -2,10 +2,9 @@ export const projects = [
   {
     id: 'agroinsumos',
     title: 'Agroinsumos',
-    // TODO(usuario): ajusta esta descripción con el detalle real del proyecto.
     description:
-      'Plataforma para la gestión y venta de insumos agrícolas, con catálogo de productos y seguimiento de pedidos.',
-    stack: ['React', 'Node.js'],
+      'Catálogo agrícola construido con Next.js, elegido por su velocidad de renderizado y su impacto en SEO y posicionamiento del negocio. Organiza los productos por cultivo (por ejemplo, mora) mostrando las enfermedades más comunes y los productos recomendados, para que el agricultor se informe antes de comprar.',
+    stack: ['Next.js', 'React'],
     // Repo privado por decisión del usuario: no se muestra enlace al código.
     repoUrl: null,
     demoUrl: 'https://centro-agricola-campo.vercel.app/',
@@ -15,8 +14,8 @@ export const projects = [
     id: 'envios-angular',
     title: 'App de envíos (Angular)',
     description:
-      'Aplicación de seguimiento de envíos desarrollada como proyecto universitario.',
-    stack: ['Angular', 'TypeScript'],
+      'Frontend en Angular conectado a una arquitectura de 3 microservicios: seguridad en Java con manejo de roles y cifrado de datos en MongoDB, lógica de negocio con AdonisJS y MySQL, y notificaciones (correo y SMS) para autenticación de doble factor mediante servicios de Azure y Google. Incluye renderización de mapas en tiempo real con geolocalización para el seguimiento de pedidos.',
+    stack: ['Angular', 'Java', 'AdonisJS', 'MongoDB', 'MySQL', 'Geolocalización en tiempo real'],
     repoUrl: 'https://github.com/CristianGarcia21/ms-frontend',
     demoUrl: null,
     image: null,
@@ -30,8 +29,11 @@ export const projects = [
     // Repo privado dentro de la organización de la universidad (proyecto de semillero en desarrollo).
     repoUrl: null,
     demoUrl: null,
-    // TODO(usuario): sube un mockup a public/images/projects/pattern-design-detector/ y actualiza esta ruta.
-    image: null,
+    images: [
+      '/images/projects/pattern-design-detector/01-deteccion-antipatrones.png',
+      '/images/projects/pattern-design-detector/02-sugerencia-refactor-ia.png',
+      '/images/projects/pattern-design-detector/03-arquitectura-pipeline.png',
+    ],
     note: 'Proyecto de investigación universitario (repositorio privado) · Presentado en el Encuentro de Semilleros de Caldas, Manizales.',
   },
 ];

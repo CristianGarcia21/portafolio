@@ -1,26 +1,11 @@
-import { useState } from 'react';
+import ProjectGallery from './ProjectGallery';
 
 export default function ProjectCard({ project }) {
-  const [imageFailed, setImageFailed] = useState(false);
   const hasLink = Boolean(project.repoUrl || project.demoUrl);
 
   return (
     <article className="group flex flex-col gap-4 rounded-lg border border-white/10 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:border-emerald-400/40 hover:shadow-lg hover:shadow-emerald-500/10">
-      {project.image && !imageFailed ? (
-        <img
-          src={project.image}
-          alt={`Captura del proyecto ${project.title}`}
-          className="aspect-video w-full rounded-md object-cover transition duration-300 group-hover:scale-[1.02]"
-          onError={() => setImageFailed(true)}
-        />
-      ) : (
-        <div
-          data-testid="image-placeholder"
-          className="flex aspect-video w-full items-center justify-center rounded-md border border-dashed border-white/20 bg-black/40 font-mono text-sm text-neutral-500"
-        >
-          Capturas próximamente
-        </div>
-      )}
+      <ProjectGallery title={project.title} image={project.image} images={project.images} />
       <h3 className="text-xl font-semibold text-neutral-100 transition group-hover:text-emerald-400">
         {project.title}
       </h3>

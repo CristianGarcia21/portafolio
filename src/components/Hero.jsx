@@ -1,6 +1,11 @@
 import { motion } from 'framer-motion';
+import { useTypewriter } from '../hooks/useTypewriter';
+
+const FULL_NAME = 'Cristian García';
 
 export default function Hero() {
+  const typedName = useTypewriter(FULL_NAME);
+
   return (
     <motion.section
       id="inicio"
@@ -9,14 +14,13 @@ export default function Hero() {
       transition={{ duration: 0.6, ease: 'easeOut' }}
       className="flex min-h-screen flex-col items-center justify-center gap-6 px-4 text-center"
     >
-      <p className="flex items-center gap-1 font-mono text-sm uppercase tracking-widest text-emerald-400">
-        Hola, soy
-        <span aria-hidden="true" className="animate-blink text-emerald-400">
-          ▍
-        </span>
-      </p>
+      <p className="font-mono text-sm uppercase tracking-widest text-emerald-400">Hola, soy</p>
       <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-7xl md:text-8xl">
-        Cristian García
+        <span className="sr-only">{FULL_NAME}</span>
+        <span aria-hidden="true">
+          {typedName}
+          <span className="animate-blink text-emerald-400">▍</span>
+        </span>
       </h1>
       <h2 className="text-xl text-neutral-300 sm:text-2xl">Frontend Developer</h2>
       <p className="max-w-xl text-neutral-400">
