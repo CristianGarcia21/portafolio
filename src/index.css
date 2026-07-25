@@ -51,7 +51,8 @@ html {
   .animate-marquee-left,
   .animate-marquee-right,
   .animate-blink,
-  .animate-ping {
+  .animate-ping,
+  .animate-pulse {
     animation: none;
   }
 }

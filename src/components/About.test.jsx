@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import About from './About';
 
@@ -12,5 +12,14 @@ describe('About', () => {
     render(<About />);
     expect(screen.getByRole('heading', { name: /sobre mí/i })).toBeInTheDocument();
     expect(screen.getByTestId('bio-text').textContent.length).toBeGreaterThan(0);
+  });
+
+  it('renders the quick-facts card with the university, self-taught, reading and sports', () => {
+    render(<About />);
+    const quickFacts = screen.getByTestId('quick-facts');
+    expect(within(quickFacts).getByText(/universidad de caldas/i)).toBeInTheDocument();
+    expect(within(quickFacts).getByText('Autodidacta')).toBeInTheDocument();
+    expect(within(quickFacts).getByText('Lectura')).toBeInTheDocument();
+    expect(within(quickFacts).getByText('Deporte')).toBeInTheDocument();
   });
 });
