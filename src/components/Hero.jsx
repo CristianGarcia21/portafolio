@@ -1,7 +1,12 @@
+import { motion } from 'framer-motion';
+
 export default function Hero() {
   return (
-    <section
+    <motion.section
       id="inicio"
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
       className="flex min-h-screen flex-col items-center justify-center gap-6 px-4 text-center"
     >
       <p className="font-mono text-sm uppercase tracking-widest text-emerald-400">Hola, soy</p>
@@ -25,6 +30,6 @@ export default function Hero() {
           Contacto
         </a>
       </div>
-    </section>
+    </motion.section>
   );
 }

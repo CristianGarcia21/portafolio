@@ -7,11 +7,11 @@ describe('skills data', () => {
     expect(skills.length).toBeGreaterThan(0);
   });
 
-  it('each skill has a non-empty name and an icon', () => {
+  it('each skill has a non-empty name and an icon component', () => {
     skills.forEach((skill) => {
       expect(typeof skill.name).toBe('string');
       expect(skill.name.length).toBeGreaterThan(0);
-      expect(typeof skill.icon).toBe('string');
+      expect(typeof skill.icon).toBe('function');
     });
   });
 });
