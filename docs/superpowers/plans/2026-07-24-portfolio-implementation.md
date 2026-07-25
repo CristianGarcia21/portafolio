@@ -413,27 +413,31 @@ describe('projects data', () => {
     expect(projects).toHaveLength(2);
   });
 
-  it('each project has the required fields', () => {
+  it('each project has the required fields and at least one link (repo or demo)', () => {
     projects.forEach((project) => {
       expect(typeof project.title).toBe('string');
       expect(typeof project.description).toBe('string');
       expect(Array.isArray(project.stack)).toBe(true);
-      expect(typeof project.repoUrl).toBe('string');
+      expect(project.repoUrl === null || typeof project.repoUrl === 'string').toBe(true);
+      expect(project.demoUrl === null || typeof project.demoUrl === 'string').toBe(true);
+      expect(project.repoUrl !== null || project.demoUrl !== null).toBe(true);
     });
   });
 
-  it('the envios-angular project has no demo URL or image yet', () => {
+  it('the envios-angular project has a repo URL but no demo URL or image yet', () => {
     const envios = projects.find((p) => p.id === 'envios-angular');
     expect(envios).toBeDefined();
+    expect(typeof envios.repoUrl).toBe('string');
     expect(envios.demoUrl).toBeNull();
     expect(envios.image).toBeNull();
   });
 
-  it('the agroinsumos project has a demo URL and an image', () => {
+  it('the agroinsumos project has a demo URL and an image but no public repo (private repo)', () => {
     const agroinsumos = projects.find((p) => p.id === 'agroinsumos');
     expect(agroinsumos).toBeDefined();
     expect(typeof agroinsumos.demoUrl).toBe('string');
     expect(typeof agroinsumos.image).toBe('string');
+    expect(agroinsumos.repoUrl).toBeNull();
   });
 });
 ```
@@ -454,10 +458,9 @@ export const projects = [
     description:
       'Plataforma para la gestión y venta de insumos agrícolas, con catálogo de productos y seguimiento de pedidos.',
     stack: ['React', 'Node.js'],
-    // TODO(usuario): reemplaza con la URL real del repositorio.
-    repoUrl: 'https://github.com/tu-usuario/agroinsumos',
-    // TODO(usuario): reemplaza con la URL real de la demo en vivo.
-    demoUrl: 'https://tu-demo-agroinsumos.netlify.app',
+    // Repo privado por decisión del usuario: no se muestra enlace al código.
+    repoUrl: null,
+    demoUrl: 'https://centro-agricola-campo.vercel.app/',
     image: '/images/projects/agroinsumos/01-dashboard.png',
   },
   {
@@ -466,8 +469,7 @@ export const projects = [
     description:
       'Aplicación de seguimiento de envíos desarrollada como proyecto universitario.',
     stack: ['Angular', 'TypeScript'],
-    // TODO(usuario): reemplaza con la URL real del repositorio.
-    repoUrl: 'https://github.com/tu-usuario/envios-angular',
+    repoUrl: 'https://github.com/CristianGarcia21/ms-frontend',
     demoUrl: null,
     image: null,
   },
@@ -1028,7 +1030,7 @@ git commit -m "feat: agrega sección de logros con badge de estado"
 - Test: `src/components/Projects.test.jsx`
 
 **Interfaces:**
-- Consumes: `projects` from `src/data/projects.js` (Task 2); `ProjectCard` consumes a single `project` prop matching that shape.
+- Consumes: `projects` from `src/data/projects.js` (Task 2); `ProjectCard` consumes a single `project` prop matching that shape, where `repoUrl` and `demoUrl` are each `string | null` (a project may have a private repo, so `repoUrl` is not guaranteed).
 - Produces: `ProjectCard` default export (takes `{ project }` prop). Produces: `Projects` default export, section with `id="proyectos"`, rendered by `App` in Task 10.
 
 - [ ] **Step 1: Write the failing test `src/components/ProjectCard.test.jsx`**
@@ -1038,7 +1040,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import ProjectCard from './ProjectCard';
 
-const projectWithDemo = {
+const projectWithBothLinks = {
   id: 'agroinsumos',
   title: 'Agroinsumos',
   description: 'Plataforma de insumos agrícolas.',
@@ -1048,7 +1050,7 @@ const projectWithDemo = {
   image: '/images/projects/agroinsumos/01-dashboard.png',
 };
 
-const projectWithoutDemo = {
+const projectWithRepoOnly = {
   id: 'envios-angular',
   title: 'App de envíos',
   description: 'App de seguimiento de envíos.',
@@ -1058,28 +1060,47 @@ const projectWithoutDemo = {
   image: null,
 };
 
+const projectWithDemoOnly = {
+  id: 'proyecto-privado',
+  title: 'Proyecto con repo privado',
+  description: 'Proyecto con código fuente privado.',
+  stack: ['React'],
+  repoUrl: null,
+  demoUrl: 'https://demo-privado.example.com',
+  image: null,
+};
+
 describe('ProjectCard', () => {
-  it('renders the image and a demo link when both are provided', () => {
-    render(<ProjectCard project={projectWithDemo} />);
+  it('renders the image, repo link and demo link when all are provided', () => {
+    render(<ProjectCard project={projectWithBothLinks} />);
     expect(screen.getByRole('img', { name: /captura del proyecto agroinsumos/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /repositorio/i })).toHaveAttribute(
+      'href',
+      projectWithBothLinks.repoUrl,
+    );
     expect(screen.getByRole('link', { name: /demo en vivo/i })).toHaveAttribute(
       'href',
-      'https://demo.example.com',
+      projectWithBothLinks.demoUrl,
     );
     expect(screen.queryByTestId('image-placeholder')).not.toBeInTheDocument();
   });
 
   it('renders a placeholder and no demo link when image/demoUrl are missing', () => {
-    render(<ProjectCard project={projectWithoutDemo} />);
+    render(<ProjectCard project={projectWithRepoOnly} />);
     expect(screen.getByTestId('image-placeholder')).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /demo en vivo/i })).not.toBeInTheDocument();
-  });
-
-  it('always renders the repository link', () => {
-    render(<ProjectCard project={projectWithoutDemo} />);
     expect(screen.getByRole('link', { name: /repositorio/i })).toHaveAttribute(
       'href',
-      projectWithoutDemo.repoUrl,
+      projectWithRepoOnly.repoUrl,
+    );
+  });
+
+  it('hides the repository link when repoUrl is null (private repo)', () => {
+    render(<ProjectCard project={projectWithDemoOnly} />);
+    expect(screen.queryByRole('link', { name: /repositorio/i })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /demo en vivo/i })).toHaveAttribute(
+      'href',
+      projectWithDemoOnly.demoUrl,
     );
   });
 });
@@ -1120,14 +1141,16 @@ export default function ProjectCard({ project }) {
         ))}
       </ul>
       <div className="mt-auto flex gap-4">
-        <a
-          href={project.repoUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="text-sm font-medium text-neutral-200 underline-offset-4 hover:text-emerald-400 hover:underline"
-        >
-          Repositorio
-        </a>
+        {project.repoUrl && (
+          <a
+            href={project.repoUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm font-medium text-neutral-200 underline-offset-4 hover:text-emerald-400 hover:underline"
+          >
+            Repositorio
+          </a>
+        )}
         {project.demoUrl && (
           <a
             href={project.demoUrl}
@@ -1448,13 +1471,12 @@ Create a GitHub repository, push this local repo to it, then in Netlify: "Add ne
 ## Content still needed from the user before this looks "final"
 
 Resolved already (incorporated into the tasks above): real skills list, real contact
-info (email/LinkedIn/GitHub), and a starter bio the user said they'd refine later.
+info (email/LinkedIn/GitHub), a starter bio the user said they'd refine later, the
+Agroinsumos live demo URL, the Angular shipping-app repo URL, and the decision to hide
+the repo link for Agroinsumos since that repo is private.
 
-Still pending — `src/data/projects.js` keeps placeholder values marked `TODO(usuario)`
-for these until the user provides them in chat:
+Still pending — `src/data/projects.js` keeps a placeholder value marked `TODO(usuario)`
+for this until the user provides it in chat:
 
-- Real repo URL for Agroinsumos (`projects[0].repoUrl`).
-- Real repo URL for the Angular shipping app (`projects[1].repoUrl`).
-- Real live demo URL for Agroinsumos (`projects[0].demoUrl`).
-- Real description text for the Agroinsumos project.
+- Real description text for the Agroinsumos project (`projects[0].description`).
 - `public/images/projects/agroinsumos/` — actual screenshot files (folder already scaffolded, naming convention: `01-dashboard.png`, `02-listado-productos.png`, etc.). Update the `image` path in `src/data/projects.js` to match the real filename once uploaded.
