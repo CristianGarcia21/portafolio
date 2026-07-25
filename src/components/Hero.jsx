@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTypewriter } from '../hooks/useTypewriter';
 
 const FULL_NAME = 'Cristian García';
+const PROFILE_PHOTO = '/images/profile/profile.jpg';
 
 export default function Hero() {
   const typedName = useTypewriter(FULL_NAME);
+  const [photoFailed, setPhotoFailed] = useState(false);
 
   return (
     <motion.section
@@ -14,6 +17,14 @@ export default function Hero() {
       transition={{ duration: 0.6, ease: 'easeOut' }}
       className="flex min-h-screen flex-col items-center justify-center gap-6 px-4 text-center"
     >
+      {!photoFailed && (
+        <img
+          src={PROFILE_PHOTO}
+          alt={`Foto de perfil de ${FULL_NAME}`}
+          className="h-32 w-32 rounded-full border-2 border-emerald-400/40 object-cover sm:h-40 sm:w-40"
+          onError={() => setPhotoFailed(true)}
+        />
+      )}
       <p className="font-mono text-sm uppercase tracking-widest text-emerald-400">Hola, soy</p>
       <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-7xl md:text-8xl">
         <span className="sr-only">{FULL_NAME}</span>
