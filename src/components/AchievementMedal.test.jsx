@@ -17,7 +17,7 @@ const withCertificate = {
   title: 'Hackathon Colombia 5.0',
   result: '2do lugar',
   status: 'completed',
-  certificateUrl: '/documents/achievements/certificado.pdf',
+  certificateUrl: '/images/achievements/colombia-5-0/certificado.pdf',
 };
 
 const inProgress = {
@@ -72,6 +72,17 @@ describe('AchievementMedal', () => {
       'aria-expanded',
       'false',
     );
+  });
+
+  it('moves focus to the "Volver" control after flipping, and back to the front button after flipping back', () => {
+    render(<AchievementMedal achievement={withPhotoAndBlog} />);
+    fireEvent.click(screen.getByRole('button', { name: /ver más sobre/i }));
+
+    const volverButton = screen.getByRole('button', { name: /ocultar detalles/i });
+    expect(volverButton).toHaveFocus();
+
+    fireEvent.click(volverButton);
+    expect(screen.getByRole('button', { name: /ver más sobre/i })).toHaveFocus();
   });
 
   it('shows the certificate link on the back for an achievement with a certificateUrl', () => {

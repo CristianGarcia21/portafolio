@@ -8,7 +8,7 @@ export default function Achievements() {
     <section id="logros" className="mx-auto max-w-4xl px-4 py-24">
       <Reveal>
         <SectionHeading>Logros</SectionHeading>
-        <div className="grid gap-6 sm:grid-cols-3">
+        <div role="list" className="grid gap-6 sm:grid-cols-3">
           {achievements.map((achievement) => (
             <AchievementMedal key={achievement.id} achievement={achievement} />
           ))}

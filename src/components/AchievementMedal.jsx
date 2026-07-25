@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaFilePdf, FaHourglassHalf, FaTrophy } from 'react-icons/fa';
 import { getStatusBadge } from './achievementStatus';
@@ -8,21 +8,37 @@ export default function AchievementMedal({ achievement }) {
   const [photoFailed, setPhotoFailed] = useState(false);
   const isCompleted = achievement.status === 'completed';
   const badge = getStatusBadge(achievement.status);
+  const frontButtonRef = useRef(null);
+  const backButtonRef = useRef(null);
+
+  const flipToBack = () => {
+    setFlipped(true);
+    backButtonRef.current?.focus();
+  };
+
+  const flipToFront = () => {
+    setFlipped(false);
+    frontButtonRef.current?.focus();
+  };
+
+  const hasPendingMessage = !achievement.photo && !achievement.certificateUrl && !achievement.blogUrl;
 
   return (
-    <div className="[perspective:1200px]" data-testid={`achievement-medal-${achievement.id}`}>
+    <div
+      role="listitem"
+      className="[perspective:1200px]"
+      data-testid={`achievement-medal-${achievement.id}`}
+    >
       <motion.div
         className="relative h-72 w-full [transform-style:preserve-3d]"
         animate={{ rotateY: flipped ? 180 : 0 }}
         transition={{ duration: 0.6, ease: 'easeInOut' }}
       >
-        <div
-          aria-hidden={flipped}
-          className="absolute inset-0 [backface-visibility:hidden]"
-        >
+        <div aria-hidden={flipped} className="absolute inset-0 [backface-visibility:hidden]">
           <button
+            ref={frontButtonRef}
             type="button"
-            onClick={() => setFlipped(true)}
+            onClick={flipToBack}
             aria-expanded={flipped}
             aria-label={`Ver más sobre ${achievement.title}`}
             tabIndex={flipped ? -1 : 0}
@@ -44,7 +60,7 @@ export default function AchievementMedal({ achievement }) {
             <span className={`rounded-full px-3 py-1 text-xs font-medium ${badge.className}`}>
               {badge.label}
             </span>
-            <span className="font-mono text-[11px] text-neutral-500">Toca para ver más ↻</span>
+            <span className="font-mono text-[11px] text-neutral-500">Ver más ↻</span>
           </button>
         </div>
 
@@ -95,17 +111,18 @@ export default function AchievementMedal({ achievement }) {
                 Ver certificado (PDF) →
               </a>
             )}
-            {!achievement.photo && !achievement.certificateUrl && (
+            {hasPendingMessage && (
               <p className="font-mono text-xs italic text-neutral-400">
                 Aún sin certificado — los resultados están en camino.
               </p>
             )}
             <button
+              ref={backButtonRef}
               type="button"
-              onClick={() => setFlipped(false)}
+              onClick={flipToFront}
               aria-label={`Ocultar detalles de ${achievement.title}`}
               tabIndex={flipped ? 0 : -1}
-              className="mt-auto self-start text-xs text-neutral-500 transition hover:text-neutral-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+              className="-ml-3 mt-auto self-start rounded px-3 py-2 text-xs text-neutral-400 transition hover:text-neutral-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
             >
               ← Volver
             </button>
