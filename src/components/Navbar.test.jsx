@@ -31,4 +31,14 @@ describe('Navbar', () => {
     await user.click(within(mobileMenu).getByRole('link', { name: 'Inicio' }));
     expect(screen.queryByTestId('mobile-menu')).not.toBeInTheDocument();
   });
+
+  it('updates aria-expanded and aria-label when the menu opens', async () => {
+    const user = userEvent.setup();
+    render(<Navbar />);
+    const toggleButton = screen.getByRole('button', { name: /abrir menú/i });
+    expect(toggleButton).toHaveAttribute('aria-expanded', 'false');
+    await user.click(toggleButton);
+    expect(toggleButton).toHaveAttribute('aria-expanded', 'true');
+    expect(toggleButton).toHaveAttribute('aria-label', 'Cerrar menú');
+  });
 });

@@ -32,7 +32,7 @@ export default function Navbar() {
         </ul>
         <button
           type="button"
-          aria-label="Abrir menú"
+          aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
           aria-expanded={isOpen}
           onClick={() => setIsOpen((prev) => !prev)}
           className="text-neutral-200 md:hidden"
