@@ -5,7 +5,7 @@ export default function Contact() {
   return (
     <section
       id="contacto"
-      className="mx-auto flex max-w-3xl flex-col items-center gap-6 px-4 py-24 text-center"
+      className="mx-auto flex max-w-3xl flex-col items-center px-4 py-24 text-center"
     >
       <Reveal>
         <h2 className="font-mono text-sm uppercase tracking-widest text-emerald-400">Contacto</h2>
