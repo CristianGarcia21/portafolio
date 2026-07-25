@@ -21,4 +21,17 @@ export const projects = [
     demoUrl: null,
     image: null,
   },
+  {
+    id: 'pattern-design-detector',
+    title: 'Pattern Design Detector',
+    description:
+      'Extensión de Visual Studio Code que detecta antipatrones de diseño en proyectos Java. Combina análisis estático con Java Tree-sitter y un pipeline de agentes de IA que sugieren el refactor correspondiente.',
+    stack: ['TypeScript', 'Python', 'Java Tree-sitter', 'IA'],
+    // Repo privado dentro de la organización de la universidad (proyecto de semillero en desarrollo).
+    repoUrl: null,
+    demoUrl: null,
+    // TODO(usuario): sube un mockup a public/images/projects/pattern-design-detector/ y actualiza esta ruta.
+    image: null,
+    note: 'Proyecto de investigación universitario (repositorio privado) · Presentado en el Encuentro de Semilleros de Caldas, Manizales.',
+  },
 ];

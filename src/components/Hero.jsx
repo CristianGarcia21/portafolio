@@ -9,8 +9,15 @@ export default function Hero() {
       transition={{ duration: 0.6, ease: 'easeOut' }}
       className="flex min-h-screen flex-col items-center justify-center gap-6 px-4 text-center"
     >
-      <p className="font-mono text-sm uppercase tracking-widest text-emerald-400">Hola, soy</p>
-      <h1 className="text-4xl font-bold text-white sm:text-6xl">Cristian García</h1>
+      <p className="flex items-center gap-1 font-mono text-sm uppercase tracking-widest text-emerald-400">
+        Hola, soy
+        <span aria-hidden="true" className="animate-blink text-emerald-400">
+          ▍
+        </span>
+      </p>
+      <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-7xl md:text-8xl">
+        Cristian García
+      </h1>
       <h2 className="text-xl text-neutral-300 sm:text-2xl">Frontend Developer</h2>
       <p className="max-w-xl text-neutral-400">
         Construyo interfaces limpias y funcionales, con interés creciente en llevar mis

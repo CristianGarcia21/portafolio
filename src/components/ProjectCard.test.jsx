@@ -32,6 +32,17 @@ const projectWithDemoOnly = {
   image: null,
 };
 
+const projectWithNoteOnly = {
+  id: 'pattern-design-detector',
+  title: 'Pattern Design Detector',
+  description: 'Extensión de VS Code que detecta antipatrones de diseño.',
+  stack: ['TypeScript', 'Python'],
+  repoUrl: null,
+  demoUrl: null,
+  image: null,
+  note: 'Proyecto de investigación universitario (repositorio privado).',
+};
+
 describe('ProjectCard', () => {
   it('renders the image, repo link and demo link when all are provided', () => {
     render(<ProjectCard project={projectWithBothLinks} />);
@@ -74,5 +85,17 @@ describe('ProjectCard', () => {
     expect(
       screen.queryByRole('img', { name: /captura del proyecto agroinsumos/i }),
     ).not.toBeInTheDocument();
+  });
+
+  it('renders the note and no links when neither repoUrl nor demoUrl are provided', () => {
+    render(<ProjectCard project={projectWithNoteOnly} />);
+    expect(screen.queryByRole('link', { name: /repositorio/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /demo en vivo/i })).not.toBeInTheDocument();
+    expect(screen.getByTestId('project-note')).toHaveTextContent(projectWithNoteOnly.note);
+  });
+
+  it('does not render the note when a link is present', () => {
+    render(<ProjectCard project={projectWithRepoOnly} />);
+    expect(screen.queryByTestId('project-note')).not.toBeInTheDocument();
   });
 });

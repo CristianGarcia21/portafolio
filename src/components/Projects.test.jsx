@@ -16,10 +16,15 @@ describe('Projects', () => {
     });
   });
 
-  it('renders exactly one repo link, one demo link, and one image placeholder for the real project data', () => {
+  it('renders exactly one repo link, one demo link, and two image placeholders for the real project data', () => {
     render(<Projects />);
     expect(screen.getAllByRole('link', { name: /repositorio/i })).toHaveLength(1);
     expect(screen.getAllByRole('link', { name: /demo en vivo/i })).toHaveLength(1);
-    expect(screen.getAllByTestId('image-placeholder')).toHaveLength(1);
+    expect(screen.getAllByTestId('image-placeholder')).toHaveLength(2);
+  });
+
+  it('renders the explanatory note for the project with no public links', () => {
+    render(<Projects />);
+    expect(screen.getByTestId('project-note')).toBeInTheDocument();
   });
 });

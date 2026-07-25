@@ -1,5 +1,6 @@
 import { contact } from '../data/contact';
 import Reveal from './Reveal';
+import SectionHeading from './SectionHeading';
 
 export default function Contact() {
   return (
@@ -8,8 +9,8 @@ export default function Contact() {
       className="mx-auto flex max-w-3xl flex-col items-center px-4 py-24 text-center"
     >
       <Reveal>
-        <h2 className="font-mono text-sm uppercase tracking-widest text-emerald-400">Contacto</h2>
-        <p className="mt-6 max-w-md text-neutral-400">
+        <SectionHeading>Contacto</SectionHeading>
+        <p className="-mt-2 max-w-md text-neutral-400">
           ¿Quieres hablar sobre una oportunidad o un proyecto? Escríbeme.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-4">

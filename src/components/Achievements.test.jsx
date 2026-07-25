@@ -18,8 +18,15 @@ describe('Achievements', () => {
 
   it('renders "En curso" for the Open Data Colombia hackathon', () => {
     render(<Achievements />);
-    const openDataTitle = screen.getByText('Hackathon Open Data Colombia');
-    const card = openDataTitle.closest('li');
+    const card = screen.getByTestId('achievement-node-open-data-colombia');
     expect(within(card).getByText('En curso')).toBeInTheDocument();
+  });
+
+  it('renders "Completado" for the two finished hackathons', () => {
+    render(<Achievements />);
+    const talentoTech = screen.getByTestId('achievement-node-talento-tech');
+    const colombia50 = screen.getByTestId('achievement-node-colombia-5-0');
+    expect(within(talentoTech).getByText('Completado')).toBeInTheDocument();
+    expect(within(colombia50).getByText('Completado')).toBeInTheDocument();
   });
 });
