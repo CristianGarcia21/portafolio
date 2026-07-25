@@ -13,7 +13,7 @@ export default function Contact() {
       <div className="flex flex-wrap justify-center gap-4">
         <a
           href={`mailto:${contact.email}`}
-          className="rounded-md bg-emerald-500 px-6 py-3 font-medium text-black transition hover:bg-emerald-400"
+          className="rounded-md bg-emerald-500 px-6 py-3 font-medium text-black transition hover:bg-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f]"
         >
           Email
         </a>
@@ -21,7 +21,7 @@ export default function Contact() {
           href={contact.linkedin}
           target="_blank"
           rel="noreferrer"
-          className="rounded-md border border-emerald-500 px-6 py-3 font-medium text-emerald-400 transition hover:bg-emerald-500/10"
+          className="rounded-md border border-emerald-500 px-6 py-3 font-medium text-emerald-400 transition hover:bg-emerald-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f]"
         >
           LinkedIn
         </a>
@@ -29,7 +29,7 @@ export default function Contact() {
           href={contact.github}
           target="_blank"
           rel="noreferrer"
-          className="rounded-md border border-emerald-500 px-6 py-3 font-medium text-emerald-400 transition hover:bg-emerald-500/10"
+          className="rounded-md border border-emerald-500 px-6 py-3 font-medium text-emerald-400 transition hover:bg-emerald-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f]"
         >
           GitHub
         </a>

@@ -1,11 +1,16 @@
+import { useState } from 'react';
+
 export default function ProjectCard({ project }) {
+  const [imageFailed, setImageFailed] = useState(false);
+
   return (
     <article className="flex flex-col gap-4 rounded-lg border border-white/10 bg-white/5 p-6">
-      {project.image ? (
+      {project.image && !imageFailed ? (
         <img
           src={project.image}
           alt={`Captura del proyecto ${project.title}`}
           className="aspect-video w-full rounded-md object-cover"
+          onError={() => setImageFailed(true)}
         />
       ) : (
         <div
@@ -30,7 +35,7 @@ export default function ProjectCard({ project }) {
             href={project.repoUrl}
             target="_blank"
             rel="noreferrer"
-            className="text-sm font-medium text-neutral-200 underline-offset-4 hover:text-emerald-400 hover:underline"
+            className="text-sm font-medium text-neutral-200 underline-offset-4 hover:text-emerald-400 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f]"
           >
             Repositorio
           </a>
@@ -40,7 +45,7 @@ export default function ProjectCard({ project }) {
             href={project.demoUrl}
             target="_blank"
             rel="noreferrer"
-            className="text-sm font-medium text-emerald-400 underline-offset-4 hover:underline"
+            className="text-sm font-medium text-emerald-400 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f]"
           >
             Demo en vivo
           </a>

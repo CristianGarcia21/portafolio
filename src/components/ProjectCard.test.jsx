@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import ProjectCard from './ProjectCard';
 
@@ -64,5 +64,15 @@ describe('ProjectCard', () => {
       'href',
       projectWithDemoOnly.demoUrl,
     );
+  });
+
+  it('falls back to the placeholder when the image fails to load (404)', () => {
+    render(<ProjectCard project={projectWithBothLinks} />);
+    const img = screen.getByRole('img', { name: /captura del proyecto agroinsumos/i });
+    fireEvent.error(img);
+    expect(screen.getByTestId('image-placeholder')).toBeInTheDocument();
+    expect(
+      screen.queryByRole('img', { name: /captura del proyecto agroinsumos/i }),
+    ).not.toBeInTheDocument();
   });
 });

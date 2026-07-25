@@ -15,4 +15,11 @@ describe('Projects', () => {
       expect(screen.getByText(project.title)).toBeInTheDocument();
     });
   });
+
+  it('renders exactly one repo link, one demo link, and one image placeholder for the real project data', () => {
+    render(<Projects />);
+    expect(screen.getAllByRole('link', { name: /repositorio/i })).toHaveLength(1);
+    expect(screen.getAllByRole('link', { name: /demo en vivo/i })).toHaveLength(1);
+    expect(screen.getAllByTestId('image-placeholder')).toHaveLength(1);
+  });
 });

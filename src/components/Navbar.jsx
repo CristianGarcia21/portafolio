@@ -15,7 +15,10 @@ export default function Navbar() {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur">
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
-        <a href="#inicio" className="font-mono text-lg font-bold text-emerald-400">
+        <a
+          href="#inicio"
+          className="font-mono text-lg font-bold text-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f]"
+        >
           CG
         </a>
         <ul className="hidden gap-6 md:flex">
@@ -23,7 +26,7 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm text-neutral-300 transition hover:text-emerald-400"
+                className="text-sm text-neutral-300 transition hover:text-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f]"
               >
                 {link.label}
               </a>
@@ -35,7 +38,7 @@ export default function Navbar() {
           aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
           aria-expanded={isOpen}
           onClick={() => setIsOpen((prev) => !prev)}
-          className="text-neutral-200 md:hidden"
+          className="text-neutral-200 md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f]"
         >
           {isOpen ? '✕' : '☰'}
         </button>
@@ -50,7 +53,7 @@ export default function Navbar() {
               <a
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="block text-sm text-neutral-300 hover:text-emerald-400"
+                className="block text-sm text-neutral-300 hover:text-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f]"
               >
                 {link.label}
               </a>
