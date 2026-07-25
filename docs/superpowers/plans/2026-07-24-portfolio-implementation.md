@@ -284,14 +284,16 @@ Expected: FAIL — `Failed to resolve import "./skills"`.
 - [ ] **Step 3: Write `src/data/skills.js`**
 
 ```js
-// TODO(usuario): reemplaza/ajusta esta lista con tus tecnologías reales.
 export const skills = [
   { name: 'React', icon: '⚛️' },
   { name: 'Angular', icon: '🅰️' },
-  { name: 'JavaScript', icon: '🟨' },
   { name: 'HTML5', icon: '🌐' },
   { name: 'CSS3', icon: '🎨' },
+  { name: 'JavaScript', icon: '🟨' },
+  { name: 'Java', icon: '☕' },
+  { name: 'SQL', icon: '🗄️' },
   { name: 'Git', icon: '📦' },
+  { name: 'Docker', icon: '🐳' },
 ];
 ```
 
@@ -388,11 +390,10 @@ Expected: FAIL — `Failed to resolve import "./contact"`.
 - [ ] **Step 11: Write `src/data/contact.js`**
 
 ```js
-// TODO(usuario): reemplaza con tu email, LinkedIn y GitHub reales.
 export const contact = {
-  email: 'tu-email@example.com',
-  linkedin: 'https://www.linkedin.com/in/tu-usuario',
-  github: 'https://github.com/tu-usuario',
+  email: 'cristiangarcianastar21@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/cristian-esteban-garcia-nastar-64457a147/',
+  github: 'https://github.com/CristianGarcia21',
 };
 ```
 
@@ -764,11 +765,12 @@ export default function About() {
       <h2 className="mb-6 font-mono text-sm uppercase tracking-widest text-emerald-400">
         Sobre mí
       </h2>
-      {/* TODO(usuario): reemplaza este texto con tu bio real (3-4 líneas). */}
+      {/* TODO(usuario): bio generada como punto de partida, ajústala a tu gusto más adelante. */}
       <p data-testid="bio-text" className="text-lg leading-relaxed text-neutral-300">
         Soy desarrollador frontend con experiencia construyendo interfaces con React y
-        Angular. Me apasiona resolver problemas reales con código limpio, y estoy ampliando
-        mi perfil hacia el desarrollo full stack.
+        Angular, y bases sólidas en Java, SQL y Docker que me permiten entender el proyecto
+        de punta a punta. Disfruto resolver problemas reales con código limpio y estoy
+        ampliando mi perfil hacia el desarrollo full stack.
       </p>
     </section>
   );
@@ -1445,10 +1447,14 @@ Create a GitHub repository, push this local repo to it, then in Netlify: "Add ne
 
 ## Content still needed from the user before this looks "final"
 
-These are seeded with placeholder values marked `TODO(usuario)` in Task 2 and Task 5 so the app builds and tests pass today. Update the listed file once the user provides the real value in chat:
+Resolved already (incorporated into the tasks above): real skills list, real contact
+info (email/LinkedIn/GitHub), and a starter bio the user said they'd refine later.
 
-- `src/data/skills.js` — real technology list.
-- `src/data/contact.js` — real email, LinkedIn, GitHub URLs.
-- `src/data/projects.js` — real repo URLs for both projects, real demo URL for Agroinsumos, real description text.
-- `src/components/About.jsx` — real bio paragraph.
-- `public/images/projects/agroinsumos/` — actual screenshot files (already scaffolded, see naming convention agreed earlier: `01-dashboard.png`, `02-listado-productos.png`, etc.). Update `image` paths in `src/data/projects.js` to match the real filenames.
+Still pending — `src/data/projects.js` keeps placeholder values marked `TODO(usuario)`
+for these until the user provides them in chat:
+
+- Real repo URL for Agroinsumos (`projects[0].repoUrl`).
+- Real repo URL for the Angular shipping app (`projects[1].repoUrl`).
+- Real live demo URL for Agroinsumos (`projects[0].demoUrl`).
+- Real description text for the Agroinsumos project.
+- `public/images/projects/agroinsumos/` — actual screenshot files (folder already scaffolded, naming convention: `01-dashboard.png`, `02-listado-productos.png`, etc.). Update the `image` path in `src/data/projects.js` to match the real filename once uploaded.
