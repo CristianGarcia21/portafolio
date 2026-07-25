@@ -1,15 +1,19 @@
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaFilePdf, FaHourglassHalf, FaTrophy } from 'react-icons/fa';
+import { FaFilePdf, FaHourglassHalf, FaSearchPlus, FaTrophy } from 'react-icons/fa';
 import { getStatusBadge } from './achievementStatus';
+import PhotoLightbox from './PhotoLightbox';
 
 export default function AchievementMedal({ achievement }) {
   const [flipped, setFlipped] = useState(false);
   const [photoFailed, setPhotoFailed] = useState(false);
+  const [isPhotoOpen, setIsPhotoOpen] = useState(false);
   const isCompleted = achievement.status === 'completed';
   const badge = getStatusBadge(achievement.status);
   const frontButtonRef = useRef(null);
   const backButtonRef = useRef(null);
+  const photoButtonRef = useRef(null);
+  const photoAlt = `Equipo ganador en ${achievement.title}`;
 
   const flipToBack = () => {
     setFlipped(true);
@@ -19,6 +23,11 @@ export default function AchievementMedal({ achievement }) {
   const flipToFront = () => {
     setFlipped(false);
     frontButtonRef.current?.focus();
+  };
+
+  const closePhoto = () => {
+    setIsPhotoOpen(false);
+    photoButtonRef.current?.focus();
   };
 
   const hasPendingMessage = !achievement.photo && !achievement.certificateUrl && !achievement.blogUrl;
@@ -68,25 +77,40 @@ export default function AchievementMedal({ achievement }) {
           aria-hidden={!flipped}
           className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]"
         >
-          <div className="flex h-full w-full flex-col gap-2 rounded-lg border border-emerald-400/30 bg-white/5 p-4">
+          <div className="flex h-full w-full flex-col gap-2 overflow-y-auto rounded-lg border border-emerald-400/30 bg-white/5 p-4">
             {achievement.photo &&
               (!photoFailed ? (
-                <img
-                  src={achievement.photo}
-                  alt={`Equipo ganador en ${achievement.title}`}
-                  className="h-32 w-full rounded-md object-cover"
-                  onError={() => setPhotoFailed(true)}
-                />
+                <button
+                  ref={photoButtonRef}
+                  type="button"
+                  onClick={() => setIsPhotoOpen(true)}
+                  aria-label={`Ampliar foto: ${photoAlt}`}
+                  tabIndex={flipped ? 0 : -1}
+                  className="group/photo relative h-32 w-full shrink-0 overflow-hidden rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                >
+                  <img
+                    src={achievement.photo}
+                    alt={photoAlt}
+                    className="h-full w-full object-cover transition group-hover/photo:scale-105"
+                    onError={() => setPhotoFailed(true)}
+                  />
+                  <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover/photo:bg-black/50 group-hover/photo:opacity-100">
+                    <FaSearchPlus className="h-5 w-5 text-white" aria-hidden="true" />
+                  </span>
+                </button>
               ) : (
                 <div
                   data-testid="achievement-photo-placeholder"
-                  className="flex h-32 w-full items-center justify-center rounded-md border border-dashed border-white/20 bg-black/40 font-mono text-xs text-neutral-500"
+                  className="flex h-32 w-full shrink-0 items-center justify-center rounded-md border border-dashed border-white/20 bg-black/40 font-mono text-xs text-neutral-500"
                 >
                   Foto próximamente
                 </div>
               ))}
             {achievement.team && (
               <p className="font-mono text-xs text-neutral-400">Equipo {achievement.team}</p>
+            )}
+            {achievement.description && (
+              <p className="text-xs leading-relaxed text-neutral-300">{achievement.description}</p>
             )}
             {achievement.blogUrl && (
               <a
@@ -129,6 +153,8 @@ export default function AchievementMedal({ achievement }) {
           </div>
         </div>
       </motion.div>
+
+      {isPhotoOpen && <PhotoLightbox src={achievement.photo} alt={photoAlt} onClose={closePhoto} />}
     </div>
   );
 }

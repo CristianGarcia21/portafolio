@@ -11,9 +11,15 @@ import {
   SiMongodb,
   SiMysql,
   SiPostgresql,
+  SiNodedotjs,
+  SiGooglegemini,
+  SiLanggraph,
+  SiDeepgram,
+  SiElevenlabs,
+  SiWhatsapp,
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa';
-import { TbSql, TbBrandAzure, TbBrandAws } from 'react-icons/tb';
+import { TbSql, TbBrandAzure, TbBrandAws, TbBrandTwilio } from 'react-icons/tb';
 
 export const skills = [
   { name: 'React', icon: SiReact },
@@ -22,6 +28,7 @@ export const skills = [
   { name: 'CSS3', icon: SiCss },
   { name: 'JavaScript', icon: SiJavascript },
   { name: 'TypeScript', icon: SiTypescript },
+  { name: 'Node.js', icon: SiNodedotjs },
   { name: 'Python', icon: SiPython },
   { name: 'Java', icon: FaJava },
   { name: 'SQL', icon: TbSql },
@@ -32,4 +39,10 @@ export const skills = [
   { name: 'Docker', icon: SiDocker },
   { name: 'Azure', icon: TbBrandAzure },
   { name: 'AWS', icon: TbBrandAws },
+  { name: 'Gemini API', icon: SiGooglegemini },
+  { name: 'LangGraph', icon: SiLanggraph },
+  { name: 'Deepgram', icon: SiDeepgram },
+  { name: 'Twilio', icon: TbBrandTwilio },
+  { name: 'ElevenLabs', icon: SiElevenlabs },
+  { name: 'WhatsApp Business API', icon: SiWhatsapp },
 ];

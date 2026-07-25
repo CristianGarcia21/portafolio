@@ -20,6 +20,13 @@ describe('Hero', () => {
     expect(screen.getByRole('link', { name: /^contacto$/i })).toHaveAttribute('href', '#contacto');
   });
 
+  it('renders a link to download the CV that opens in a new tab', () => {
+    render(<Hero />);
+    const cvLink = screen.getByRole('link', { name: /descargar cv/i });
+    expect(cvLink).toHaveAttribute('href', '/documents/cv-cristian-garcia.pdf');
+    expect(cvLink).toHaveAttribute('target', '_blank');
+  });
+
   it('renders the profile photo', () => {
     render(<Hero />);
     expect(screen.getByRole('img', { name: /foto de perfil/i })).toHaveAttribute(

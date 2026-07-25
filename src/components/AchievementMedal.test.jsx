@@ -8,6 +8,7 @@ const withPhotoAndBlog = {
   result: '1er lugar',
   status: 'completed',
   team: 'Try-Catch-Mijo',
+  description: 'Agente de voz con IA usando Twilio y ElevenLabs.',
   photo: '/images/achievements/talento-tech/foto-ganadores.jpg',
   blogUrl: 'https://example.com/blog',
 };
@@ -52,9 +53,27 @@ describe('AchievementMedal', () => {
       withPhotoAndBlog.photo,
     );
     expect(screen.getByText(/equipo try-catch-mijo/i)).toBeInTheDocument();
+    expect(screen.getByText(withPhotoAndBlog.description)).toBeInTheDocument();
     const blogLink = screen.getByRole('link', { name: /ver blog/i });
     expect(blogLink).toHaveAttribute('href', withPhotoAndBlog.blogUrl);
     expect(blogLink).toHaveAttribute('tabIndex', '0');
+  });
+
+  it('opens a full-size lightbox when the photo is clicked, and returns focus to it on close', () => {
+    render(<AchievementMedal achievement={withPhotoAndBlog} />);
+    fireEvent.click(screen.getByRole('button', { name: /ver más sobre/i }));
+
+    const photoButton = screen.getByRole('button', { name: /ampliar foto/i });
+    fireEvent.click(photoButton);
+
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).toBeInTheDocument();
+    // Two images now exist: the small thumbnail on the card and the full-size one in the lightbox.
+    expect(screen.getAllByRole('img', { name: /equipo ganador/i })).toHaveLength(2);
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(photoButton).toHaveFocus();
   });
 
   it('falls back to a placeholder when the photo fails to load', () => {

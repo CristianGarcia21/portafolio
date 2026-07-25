@@ -4,6 +4,7 @@ import { useTypewriter } from '../hooks/useTypewriter';
 
 const FULL_NAME = 'Cristian García';
 const PROFILE_PHOTO = '/images/profile/profile.jpg';
+const CV_URL = '/documents/cv-cristian-garcia.pdf';
 
 export default function Hero() {
   const typedName = useTypewriter(FULL_NAME);
@@ -38,7 +39,7 @@ export default function Hero() {
         Construyo interfaces limpias y funcionales, con interés creciente en llevar mis
         proyectos de extremo a extremo (full stack).
       </p>
-      <div className="flex gap-4">
+      <div className="flex flex-wrap justify-center gap-4">
         <a
           href="#proyectos"
           className="rounded-md bg-emerald-500 px-6 py-3 font-medium text-black transition hover:bg-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f]"
@@ -50,6 +51,14 @@ export default function Hero() {
           className="rounded-md border border-emerald-500 px-6 py-3 font-medium text-emerald-400 transition hover:bg-emerald-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f]"
         >
           Contacto
+        </a>
+        <a
+          href={CV_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-md border border-emerald-500 px-6 py-3 font-medium text-emerald-400 transition hover:bg-emerald-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f]"
+        >
+          Descargar CV
         </a>
       </div>
     </motion.section>

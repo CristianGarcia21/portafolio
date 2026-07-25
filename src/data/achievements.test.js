@@ -20,17 +20,19 @@ describe('achievements data', () => {
     expect(openData.status).toBe('in-progress');
   });
 
-  it('the talento-tech achievement has a team, a photo and a blog link', () => {
+  it('the talento-tech achievement has a team, a photo, a description and a blog link', () => {
     const talentoTech = achievements.find((a) => a.id === 'talento-tech');
     expect(talentoTech).toBeDefined();
     expect(talentoTech.team).toBe('Try-Catch-Mijo');
     expect(typeof talentoTech.photo).toBe('string');
+    expect(talentoTech.description.length).toBeGreaterThan(0);
     expect(talentoTech.blogUrl.startsWith('https://')).toBe(true);
   });
 
-  it('the colombia-5-0 achievement has a certificate PDF path', () => {
+  it('the colombia-5-0 achievement has a description and a certificate PDF path', () => {
     const colombia50 = achievements.find((a) => a.id === 'colombia-5-0');
     expect(colombia50).toBeDefined();
+    expect(colombia50.description.length).toBeGreaterThan(0);
     expect(colombia50.certificateUrl.endsWith('.pdf')).toBe(true);
   });
 });
