@@ -25,8 +25,7 @@ describe('Skills', () => {
   });
 
   it('marks the decorative marquee as aria-hidden so it is not read twice by screen readers', () => {
-    const { container } = render(<Skills />);
-    const marquee = container.querySelector('[aria-hidden="true"]');
-    expect(marquee).not.toBeNull();
+    render(<Skills />);
+    expect(screen.getByTestId('skills-marquee')).toHaveAttribute('aria-hidden', 'true');
   });
 });

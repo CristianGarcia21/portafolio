@@ -49,11 +49,9 @@ html {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee-left,
-  .animate-marquee-right {
-    animation: none;
-  }
-
-  .animate-blink {
+  .animate-marquee-right,
+  .animate-blink,
+  .animate-ping {
     animation: none;
   }
 }

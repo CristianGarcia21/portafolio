@@ -10,7 +10,10 @@ export default function Achievements() {
     <section id="logros" className="mx-auto max-w-4xl px-4 py-24">
       <Reveal>
         <SectionHeading>Logros</SectionHeading>
-        <div className="relative flex flex-col gap-10 sm:flex-row sm:items-start sm:gap-4">
+        <div
+          role="list"
+          className="relative flex flex-col gap-10 sm:flex-row sm:items-start sm:gap-4"
+        >
           <motion.div
             aria-hidden="true"
             initial={{ scaleX: 0 }}
@@ -30,6 +33,7 @@ export default function Achievements() {
             return (
               <motion.div
                 key={achievement.id}
+                role="listitem"
                 data-testid={`achievement-node-${achievement.id}`}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}

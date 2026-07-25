@@ -58,7 +58,7 @@ export default function ProjectCard({ project }) {
           </div>
         )}
         {!hasLink && project.note && (
-          <p data-testid="project-note" className="font-mono text-xs italic text-neutral-500">
+          <p data-testid="project-note" className="font-mono text-xs italic text-neutral-400">
             {project.note}
           </p>
         )}
