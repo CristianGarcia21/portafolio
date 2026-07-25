@@ -14,8 +14,8 @@ export const projects = [
     id: 'envios-angular',
     title: 'App de envíos (Angular)',
     description:
-      'Frontend en Angular conectado a una arquitectura de 3 microservicios: seguridad en Java con manejo de roles y cifrado de datos en MongoDB, lógica de negocio con AdonisJS y MySQL, y notificaciones (correo y SMS) para autenticación de doble factor mediante servicios de Azure y Google. Incluye renderización de mapas en tiempo real con geolocalización para el seguimiento de pedidos.',
-    stack: ['Angular', 'Java', 'AdonisJS', 'MongoDB', 'MySQL', 'Geolocalización en tiempo real'],
+      'Frontend en Angular sobre una arquitectura de 3 microservicios: seguridad en Java (roles y cifrado en MongoDB), lógica de negocio en AdonisJS con MySQL, y notificaciones de doble factor por correo y SMS vía Azure y Google. Incluye mapas en tiempo real con geolocalización para el seguimiento de pedidos.',
+    stack: ['Angular', 'Java', 'AdonisJS', 'MongoDB', 'MySQL', 'Azure'],
     repoUrl: 'https://github.com/CristianGarcia21/ms-frontend',
     demoUrl: null,
     image: null,

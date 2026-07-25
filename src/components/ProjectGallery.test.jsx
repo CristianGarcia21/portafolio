@@ -10,7 +10,7 @@ describe('ProjectGallery', () => {
 
   it('renders a single image (legacy "image" prop) with no navigation controls', () => {
     render(<ProjectGallery title="Agroinsumos" image="/images/agroinsumos/01.png" images={undefined} />);
-    expect(screen.getByRole('img', { name: /captura 1 de 1 del proyecto agroinsumos/i })).toHaveAttribute(
+    expect(screen.getByRole('img', { name: /captura del proyecto agroinsumos/i })).toHaveAttribute(
       'src',
       '/images/agroinsumos/01.png',
     );
